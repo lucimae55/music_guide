@@ -9,20 +9,18 @@ public class musicGuide {
 	}
 
 	//Function to read through a file 
-	public static void analyse(Scanner fS){
+	public static void analyse(Scanner fS, String k, String m, String c){
 		int i = 0;
-		String line;
+		String current_line;
+		
 		while(fS.hasNext()){
-			line = fS.nextLine();
-			System.out.println(line);
-			if (line.equals("Scales")){
-				System.out.println(line);
-				line = fS.next();
-				if (line.equals("C_Major1")){
-					for (int random=0;random<10; random++){
-						line = fS.next();
-						System.out.println(line);
-					}
+			current_line = fS.nextLine();
+			current_line = current_line.toLowerCase();
+			String[] fileText = current_line.split("\\s+");		
+			if(fileText.length == 3 && fileText[0].equals(k) && fileText[1].equals(m) && fileText[2].equals(c)) {
+				while (!current_line.equals("*")){
+					current_line = fS.nextLine();
+					System.out.println(current_line);
 				}
 			}
 			i++;
@@ -33,22 +31,23 @@ public class musicGuide {
 	public static void main (String[] args) throws Exception{
 		Scanner userInput = new Scanner(System.in);
 		System.out.println("What category would you like info about?");
-		System.out.println("\tScales <mode>,<key>"+
-						 "\n\tChords <mode>,<key>"+
-						 "\n\tProgression Pattern for Scales <mode>,<key>"+
-						 "\n\tFingerings <key>");
-		String category = userInput.nextLine();
-		category = category.toLowerCase();
-		String[] input = category.split("\\s+");
+		System.out.println("\t<key> <mode> scale"+
+						 "\n\t<key> <mode> chord"+
+						 "\n\tProgression Pattern for Scales <key>,<mode>"+
+						 "\n\tFingerings <key>,<mode>");
+		String input_text = userInput.nextLine();
+		input_text = input_text.toLowerCase();
+		String[] input = input_text.split("\\s+");
+		String key = input[0];
 		String mode = input[1];
-		String key = input[2];
-		scales(userInput,mode,key);
+		String category = input[2];
+		//scales(userInput,mode,key);
 
 		//Scanner for analyse function
 
 		System.out.println("About to analyse file");
 		File inputFile = new File("music_data.txt");
 		Scanner fileScanner = new Scanner(inputFile);
-		analyse(fileScanner);		
+		analyse(fileScanner, key, mode, category);		
 	}
 }
