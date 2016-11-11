@@ -8,7 +8,29 @@ public class musicGuide {
 		System.out.println(mode+" | "+key);
 	}
 
-	public static void main (String[] args) {
+	//Function to read through a file 
+	public static void analyse(Scanner fS){
+		int i = 0;
+		String line;
+		while(fS.hasNext()){
+			line = fS.nextLine();
+			System.out.println(line);
+			if (line.equals("Scales")){
+				System.out.println(line);
+				line = fS.next();
+				if (line.equals("C_Major1")){
+					for (int random=0;random<10; random++){
+						line = fS.next();
+						System.out.println(line);
+					}
+				}
+			}
+			i++;
+		}
+		System.out.println(i);
+	}
+	
+	public static void main (String[] args) throws Exception{
 		Scanner userInput = new Scanner(System.in);
 		System.out.println("What category would you like info about?");
 		System.out.println("\tScales <mode>,<key>"+
@@ -21,5 +43,12 @@ public class musicGuide {
 		String mode = input[1];
 		String key = input[2];
 		scales(userInput,mode,key);
+
+		//Scanner for analyse function
+
+		System.out.println("About to analyse file");
+		File inputFile = new File("music_data.txt");
+		Scanner fileScanner = new Scanner(inputFile);
+		analyse(fileScanner);		
 	}
 }

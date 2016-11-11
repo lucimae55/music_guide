@@ -18,7 +18,7 @@ public class text {
 			i++;
 		}
 		System.out.println(i);
-		// git hub test
+		// git hub test2
 
 	}
 	public static void main(String[] args)throws Exception{
